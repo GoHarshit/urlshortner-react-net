@@ -89,21 +89,25 @@ builder.Services.AddDbContext<AppDbContext>(
 builder.Services.AddSingleton<IConnectionMultiplexer>(
     sp =>
     {
-        var configuration =
+        var redisConnection =
+            builder.Configuration[
+                "Redis:ConnectionString"
+            ];
+
+        var options =
             ConfigurationOptions.Parse(
-                builder.Configuration[
-                    "Redis:ConnectionString"
-                ]!
+                redisConnection!
             );
 
-        configuration.AbortOnConnectFail = false;
+        options.AbortOnConnectFail = false;
+
+        options.Ssl = true;
 
         return ConnectionMultiplexer.Connect(
-            configuration
+            options
         );
     }
 );
-
 
 // ========================================
 // JWT Authentication
