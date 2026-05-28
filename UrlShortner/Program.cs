@@ -86,13 +86,22 @@ builder.Services.AddDbContext<AppDbContext>(
 // Redis Cache
 // ========================================
 
-builder.Services.AddSingleton<
-    IConnectionMultiplexer>(
-        ConnectionMultiplexer.Connect(
-            builder.Configuration[
-                "Redis:ConnectionString"
-            ]!
-        )
+builder.Services.AddSingleton<IConnectionMultiplexer>(
+    sp =>
+    {
+        var configuration =
+            ConfigurationOptions.Parse(
+                builder.Configuration[
+                    "Redis:ConnectionString"
+                ]!
+            );
+
+        configuration.AbortOnConnectFail = false;
+
+        return ConnectionMultiplexer.Connect(
+            configuration
+        );
+    }
 );
 
 
