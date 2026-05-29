@@ -252,6 +252,10 @@ if (app.Environment.IsDevelopment())
 
 // Enable in production later
 // app.UseHttpsRedirection();
+app.MapGet("/", () =>
+{
+    return "URL Shortener API Running";
+});
 
 app.UseCors("AllowReact");
 
