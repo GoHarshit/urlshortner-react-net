@@ -13,11 +13,9 @@ A full-stack production-ready URL Shortener application built using:
 
 # 🚀 Live Demo
 
-Frontend:
-`https://your-frontend-url`
+Frontend: https://urlshortner-react-net.vercel.app/login
 
-Backend API:
-`https://your-backend-url`
+Backend API: https://urlshortner-react-net.onrender.com/
 
 ---
 
